@@ -1,4 +1,4 @@
-Symfony 1.4 Social Startup
+Symfony 1.4 Social Startup Edited by koralgol
 ========================
 
 What's inside?
