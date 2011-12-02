@@ -7,3 +7,7 @@ Symfony 1.4 with changed configuration and some pluggins:
 
 
 * plugin **sfDoctrineGuardPlugin**
+
+
+
+"Krejzi sobie tez cos doda³"
