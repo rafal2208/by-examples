@@ -10,4 +10,4 @@ Symfony 1.4 with changed configuration and some pluggins:
 
 
 
-"Krejzi sobie tez cos doda≥"
+"Krejzi sobie tez cos doda≈Ç"
