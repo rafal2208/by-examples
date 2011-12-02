@@ -5,12 +5,12 @@ class mainComponents extends sfComponents
 
   public function executeFirst(sfWebRequest $request)
   {
-    $tmp = Doctrine_Core::getTable('Article')
+    $tmp = Doctrine_Core::getTable('Example')
       ->createQuery('a')
       ->limit(1)
       ->execute();
 
-    $this->article = $tmp[0];
+    $this->example = $tmp[0];
 
   }
 
