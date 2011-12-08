@@ -6,7 +6,7 @@ options:
 
 Example:
   options:
-    orderBy: title
+    orderBy: number DESC
     collate: utf8_polish_ci
     charset: utf8
     type: InnoDB
@@ -29,11 +29,13 @@ Example:
       type: string(4096)
     contents:
       type: string(4096)
+    number:
+      type: integer
 
 
 Project:
   options:
-    orderBy: title
+    orderBy: number DESC
     collate: utf8_polish_ci
     charset: utf8
     type: InnoDB
@@ -56,13 +58,15 @@ Project:
       type: string(4096)
     contents:
       type: string(4096)
+    number:
+      type: integer
 
 
 
 
 Hint:
   options:
-    orderBy: title
+    orderBy: number DESC
     collate: utf8_polish_ci
     charset: utf8
     type: InnoDB
@@ -85,6 +89,6 @@ Hint:
       type: string(4096)
     contents:
       type: string(4096)
-
-
+    number:
+      type: integer
 
