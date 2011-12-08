@@ -1,3 +1,7 @@
+hint_pager:
+  url:   /h/:page.html
+  param: { module: hint, action: index }
+
 project_pager:
   url:   /pr/:page.html
   param: { module: project, action: index }
