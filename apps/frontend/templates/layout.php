@@ -65,7 +65,7 @@
         <div class="services_box">
         	<h2>Examples</h2>
             <p>Suspendisse vitae neque eget ante tristique vestibulum. Pellentesque dolor nulla, congue vitae, fringilla in, varius a, orci. Mauris convallis.</p>
-            <div class="button_02"><a href="#">Read more</a></div>
+            <div class="button_02"><a href="<?php echo url_for('example/index'); ?>">Read more</a></div>
 
             <div class="cleaner"></div>
         </div>
@@ -73,7 +73,7 @@
         <div class="services_box">
         	<h2>Projects</h2>
             <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates fringilla in, varius a, orci. Mauris convallis.</p>
-        <div class="button_02"><a href="#">Read more</a></div>
+        <div class="button_02"><a href="<?php echo url_for('project/index'); ?>">Read more</a></div>
 
             <div class="cleaner"></div>
         </div>
@@ -81,7 +81,7 @@
         <div class="services_box services_box_last">
         	<h2>Hints</h2>
           <p>Nullam a nulla id diam facilisis facilisis semper vitae lorem. Cras  porttitor nisi ut turpis condimentum tincidunt. Pellentesque sit amet  magna vel lectus.</p>
-          <div class="button_02"><a href="#">Read more</a></div>
+          <div class="button_02"><a href="<?php echo url_for('hint/index'); ?>">Read more</a></div>
 
             <div class="cleaner"></div>
         </div>
