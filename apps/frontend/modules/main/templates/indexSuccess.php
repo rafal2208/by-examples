@@ -7,7 +7,7 @@
 
 
 
-        <?php include_component('main', 'first') ?>
+        <?php include_component('main', 'oneexample') ?>
 
 
 

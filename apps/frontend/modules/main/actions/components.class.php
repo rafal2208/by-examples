@@ -3,7 +3,7 @@
 class mainComponents extends sfComponents
 {
 
-  public function executeFirst(sfWebRequest $request)
+  public function executeOneexample(sfWebRequest $request)
   {
     $tmp = Doctrine_Core::getTable('Example')
       ->createQuery('a')
