@@ -1,3 +1,7 @@
+example_pager:
+  url:   /ex/:page.html
+  param: { module: example, action: index }
+
 article:
   class: sfDoctrineRouteCollection
   options:

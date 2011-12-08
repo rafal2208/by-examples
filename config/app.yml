@@ -9,3 +9,9 @@ staging:
 dev:
   frontend_base_url:  http://by-examples.localhost
   backend_base_url:   http://admin.by-examples.localhost
+
+
+
+
+all:
+  pager_example_max_na_stronie: 1

@@ -12,9 +12,18 @@ class exampleActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
+/*
     $this->examples = Doctrine_Core::getTable('Example')
       ->createQuery('a')
       ->execute();
+*/
+
+
+    $this->pager = new sfDoctrinePager('Example', sfConfig::get('app_pager_example_max_na_stronie'));
+    $this->pager->setQuery(Doctrine_Core::getTable('Example')->createQuery('a'));
+    $this->pager->setPage($request->getParameter('page', 1));
+    $this->pager->init();
+
   }
 
   public function executeShow(sfWebRequest $request)
