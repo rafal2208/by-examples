@@ -24,3 +24,7 @@ symfony doctrine:data-load data/fixtures/info.yml
 
 
 symfony doctrine:generate-module --with-show frontend sample Sample
+
+symfony doctrine:generate-module --with-show frontend hint Hint
+symfony doctrine:generate-module --with-show frontend project Project
+symfony doctrine:generate-module --with-show frontend example Example

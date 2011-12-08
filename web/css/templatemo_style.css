@@ -433,3 +433,13 @@ ul li a { font-weight: normal; text-decoration: none; }
 }
 
 /* end of footer */
+
+
+.czyszczenie {
+    clear: both;
+}
+
+.pojemnik {
+    width: 870px;
+    margin: 0 auto;
+}
