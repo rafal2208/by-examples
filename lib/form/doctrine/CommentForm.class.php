@@ -19,9 +19,9 @@ class CommentForm extends BaseCommentForm
       $this['created_at'],
       $this['updated_at'],
       $this['created_by'],
-      $this['updated_by'],
-      $this['examples_list'],
-      $this['example_list']
+      $this['updated_by']
+//      $this['examples_list'],
+//      $this['example_list']
     );
 
 
