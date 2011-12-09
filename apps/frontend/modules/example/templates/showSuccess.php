@@ -26,4 +26,8 @@
 </section>
 
 
-<?php include_partial('comment/form', array('form' => $form)) ?>
+<?php if ($sf_user->isAuthenticated()): ?>
+    <?php include_partial('comment/form', array('form' => $form)) ?>
+<?php endif; ?>
+
+
