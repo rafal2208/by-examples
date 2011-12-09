@@ -443,3 +443,14 @@ ul li a { font-weight: normal; text-decoration: none; }
     width: 870px;
     margin: 0 auto;
 }
+
+
+#zalogowany {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: yellow;
+    z-index: 10;
+    width: 200px;
+    height: 20px;
+}

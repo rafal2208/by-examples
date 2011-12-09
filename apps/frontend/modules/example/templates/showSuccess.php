@@ -1,9 +1,6 @@
 
 <section class="pojemnik">
 
-
-
-
     <article>
     <header>
     <h1>Example: <?php echo $example->getNumber() ?></h1>
@@ -21,6 +18,12 @@
     <?php echo $example->getUpdatedAt() ?>
     </footer>
 
+
+      <?php include_partial('global/comments', array('comments' => $example->getComments())) ?>
+
     </article>
 
 </section>
+
+
+<?php include_partial('comment/form', array('form' => $form)) ?>
