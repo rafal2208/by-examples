@@ -30,6 +30,36 @@ class projectActions extends sfActions
   {
     $this->project = Doctrine_Core::getTable('Project')->findOneBySlug($request->getParameter('slug'));
     $this->forward404Unless($this->project);
+
+    $this->form = new CommentForm();
+    $this->form->getWidget('project')->setDefault($this->project->getId());
+//    $this->form->setOptions(array('a' => 'b'));
+
+/*
+    $this->form->setWidget('project', new sfWidgetFormInputHidden());
+    $this->form->getWidget('project')->setDefault($this->project->getId());
+
+    $this->form->setValidator['project'] = new sfValidatorNumber();
+*/
+
+
+
+/*
+
+$v = $this->form->getValidators();
+
+
+echo '<pre>';
+var_dump($v);
+echo '</pre>';
+exit();
+*/
+
+//    unset(
+//        $this->form['example'],
+//        $this->form['hint']
+//    );
+
   }
 
   public function executeNew(sfWebRequest $request)

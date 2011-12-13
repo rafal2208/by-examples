@@ -21,6 +21,15 @@
     <?php echo $hint->getUpdatedAt() ?>
     </footer>
 
+
+      <?php include_partial('global/comments', array('comments' => $hint->getComments())) ?>
+
     </article>
 
 </section>
+
+<?php if ($sf_user->isAuthenticated()): ?>
+    <?php include_partial('comment/form', array('form' => $form)) ?>
+<?php endif; ?>
+
+

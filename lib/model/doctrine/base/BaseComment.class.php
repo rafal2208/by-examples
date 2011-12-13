@@ -8,16 +8,28 @@
  * @property integer $id
  * @property string $contents
  * @property Doctrine_Collection $Examples
+ * @property Doctrine_Collection $Projects
+ * @property Doctrine_Collection $Hints
  * @property Doctrine_Collection $ExampleComment
+ * @property Doctrine_Collection $ProjectComment
+ * @property Doctrine_Collection $HintComment
  * 
  * @method integer             getId()             Returns the current record's "id" value
  * @method string              getContents()       Returns the current record's "contents" value
  * @method Doctrine_Collection getExamples()       Returns the current record's "Examples" collection
+ * @method Doctrine_Collection getProjects()       Returns the current record's "Projects" collection
+ * @method Doctrine_Collection getHints()          Returns the current record's "Hints" collection
  * @method Doctrine_Collection getExampleComment() Returns the current record's "ExampleComment" collection
+ * @method Doctrine_Collection getProjectComment() Returns the current record's "ProjectComment" collection
+ * @method Doctrine_Collection getHintComment()    Returns the current record's "HintComment" collection
  * @method Comment             setId()             Sets the current record's "id" value
  * @method Comment             setContents()       Sets the current record's "contents" value
  * @method Comment             setExamples()       Sets the current record's "Examples" collection
+ * @method Comment             setProjects()       Sets the current record's "Projects" collection
+ * @method Comment             setHints()          Sets the current record's "Hints" collection
  * @method Comment             setExampleComment() Sets the current record's "ExampleComment" collection
+ * @method Comment             setProjectComment() Sets the current record's "ProjectComment" collection
+ * @method Comment             setHintComment()    Sets the current record's "HintComment" collection
  * 
  * @package    By examples
  * @subpackage model
@@ -53,7 +65,25 @@ abstract class BaseComment extends sfDoctrineRecord
              'local' => 'comment_id',
              'foreign' => 'example_id'));
 
+        $this->hasMany('Project as Projects', array(
+             'refClass' => 'ProjectComment',
+             'local' => 'comment_id',
+             'foreign' => 'project_id'));
+
+        $this->hasMany('Hint as Hints', array(
+             'refClass' => 'HintComment',
+             'local' => 'comment_id',
+             'foreign' => 'hint_id'));
+
         $this->hasMany('ExampleComment', array(
+             'local' => 'id',
+             'foreign' => 'comment_id'));
+
+        $this->hasMany('ProjectComment', array(
+             'local' => 'id',
+             'foreign' => 'comment_id'));
+
+        $this->hasMany('HintComment', array(
              'local' => 'id',
              'foreign' => 'comment_id'));
 

@@ -30,6 +30,10 @@ class hintActions extends sfActions
   {
     $this->hint = Doctrine_Core::getTable('Hint')->findOneBySlug($request->getParameter('slug'));
     $this->forward404Unless($this->hint);
+
+    $this->form = new CommentForm();
+    $this->form->getWidget('hint')->setDefault($this->hint->getId());
+
   }
 
   public function executeNew(sfWebRequest $request)

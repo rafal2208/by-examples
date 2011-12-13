@@ -31,14 +31,10 @@ Example:
       type: string(4096)
     number:
       type: integer
-
   relations:
     Comments:
       class: Comment
       refClass: ExampleComment
-#      type: many
-#      local: example_id
-#      foreign: comment_id
 
 
 Project:
@@ -68,7 +64,10 @@ Project:
       type: string(4096)
     number:
       type: integer
-
+  relations:
+    Comments:
+      class: Comment
+      refClass: ProjectComment
 
 
 
@@ -99,6 +98,10 @@ Hint:
       type: string(4096)
     number:
       type: integer
+  relations:
+    Comments:
+      class: Comment
+      refClass: HintComment
 
 
 
@@ -110,10 +113,6 @@ Comment:
     type: InnoDB
   actAs:
     Signable:
-#    Sluggable:
-#      unique: true
-#      fields: [title]
-#      canUpdate: false
     Timestampable:
   columns:
     id:
@@ -128,9 +127,14 @@ Comment:
     Examples:
       class: Example
       refClass: ExampleComment
-#      type: many
-#      local: example_id
-#      foreign: comment_id
+
+    Projects:
+      class: Project
+      refClass: ProjectComment
+
+    Hints:
+      class: Hint
+      refClass: HintComment
 
 
 
@@ -154,14 +158,64 @@ ExampleComment:
       class: Example
       local: example_id
       foreign: id
-#      foreignType: many
-#      type: one
       onDelete: CASCADE
     Comment:
       class: Comment
       local: comment_id
       foreign: id
-#      foreignType: many
-#      type: one
       onDelete: CASCADE
 
+ProjectComment:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  tableName: project_has_comment
+  columns:
+    project_id:
+      type: integer
+      primary: true
+      notnull: true
+    comment_id:
+      type: integer
+      primary: true
+      notnull: true
+  relations:
+    Project:
+      class: Project
+      local: project_id
+      foreign: id
+      onDelete: CASCADE
+    Comment:
+      class: Comment
+      local: comment_id
+      foreign: id
+      onDelete: CASCADE
+
+
+HintComment:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  tableName: hint_has_comment
+  columns:
+    hint_id:
+      type: integer
+      primary: true
+      notnull: true
+    comment_id:
+      type: integer
+      primary: true
+      notnull: true
+  relations:
+    Hint:
+      class: Hint
+      local: hint_id
+      foreign: id
+      onDelete: CASCADE
+    Comment:
+      class: Comment
+      local: comment_id
+      foreign: id
+      onDelete: CASCADE

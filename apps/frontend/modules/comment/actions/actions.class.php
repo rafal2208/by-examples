@@ -26,9 +26,6 @@ class commentActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new CommentForm();
-//    $this->form->getWidget('examples_list')->setDefault(1);
-//    $this->form->getWidget('examples_list')->setOption('choices', array(1, 2, 3));
-//    $this->form->getWidget('examples_list')->setHidden(true);
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -71,18 +68,42 @@ class commentActions extends sfActions
 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
+
+
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $comment = $form->save();
 
       $value = $form->getValue('example');
       $example = Doctrine_Core::getTable('Example')->find(array($value));
 
       if ($example)
       {
+        $comment = $form->save();
         $this->redirect('example/show?slug='.$example->getSlug());
       }
+
+      $value = $form->getValue('project');
+      $project = Doctrine_Core::getTable('Project')->find(array($value));
+
+      if ($project)
+      {
+        $comment = $form->save();
+        $this->redirect('project/show?slug='.$project->getSlug());
+      }
+
+      $value = $form->getValue('hint');
+      $hint = Doctrine_Core::getTable('Hint')->find(array($value));
+      if ($hint)
+      {
+        $comment = $form->save();
+        $this->redirect('hint/show?slug='.$hint->getSlug());
+      }
+
+      //????
+      //jaka akcja ma byc podjeta gdy brak example, project, hint?
+      //$comment = $form->save();
+
 
     }
   }

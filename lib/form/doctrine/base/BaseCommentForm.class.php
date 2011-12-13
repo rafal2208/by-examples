@@ -5,13 +5,15 @@
  *
  * @method Comment getObject() Returns the current form's model object
  *
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage form
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BaseCommentForm extends BaseFormDoctrine
 {
+
+
   public function setup()
   {
     $this->setWidgets(array(
@@ -22,6 +24,8 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       'created_at'    => new sfWidgetFormDateTime(),
       'updated_at'    => new sfWidgetFormDateTime(),
       'example'       => new sfWidgetFormInputHidden(),
+      'project'       => new sfWidgetFormInputHidden(),
+      'hint'          => new sfWidgetFormInputHidden(),
     ));
 
     $this->setValidators(array(
@@ -31,8 +35,26 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       'updated_by'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Updator'), 'required' => false)),
       'created_at'    => new sfValidatorDateTime(),
       'updated_at'    => new sfValidatorDateTime(),
-      'example'       => new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Example', 'required' => false)),
+
+      'example' => new sfValidatorOr(array(
+          new sfValidatorChoice(array('choices' => array('-1'))),
+          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Example', 'required' => false))
+      )),
+      'project' => new sfValidatorOr(array(
+          new sfValidatorChoice(array('choices' => array('-1'))),
+          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Project', 'required' => false))
+      )),
+      'hint' => new sfValidatorOr(array(
+          new sfValidatorChoice(array('choices' => array('-1'))),
+          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Hint', 'required' => false))
+      ))
+
     ));
+
+    $this->getWidget('example')->setDefault(-1);
+    $this->getWidget('project')->setDefault(-1);
+    $this->getWidget('hint')->setDefault(-1);
+
 
     $this->widgetSchema->setNameFormat('comment[%s]');
 
@@ -64,20 +86,24 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['example']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
     if (null === $con)
     {
       $con = $this->getConnection();
     }
 
-    $value = array($this->getValue('example'));
+    if (($e = $this->getValue('example')) && isset($e) && ($e != '-1')) {
 
-    $this->object->link('Examples', array_values($value));
+        $this->object->link('Examples', array($e));
+
+    } else if (($p = $this->getValue('project')) && isset($p) && ($p != '-1')) {
+
+        $this->object->link('Projects', array($p));
+
+    } else if (($h = $this->getValue('hint')) && isset($h) && ($h != '-1')) {
+
+        $this->object->link('Hints', array($h));
+
+    }
 
   }
 

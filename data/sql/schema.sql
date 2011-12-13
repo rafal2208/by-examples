@@ -3,7 +3,9 @@ CREATE TABLE comment (id BIGINT AUTO_INCREMENT, contents TEXT, created_by BIGINT
 CREATE TABLE example (id BIGINT AUTO_INCREMENT, title VARCHAR(128), lead TEXT, contents TEXT, number BIGINT, created_by BIGINT, updated_by BIGINT, slug VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX example_sluggable_idx (slug), INDEX created_by_idx (created_by), INDEX updated_by_idx (updated_by), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci ENGINE = InnoDB;
 CREATE TABLE example_has_comment (example_id BIGINT, comment_id BIGINT, PRIMARY KEY(example_id, comment_id)) ENGINE = INNODB;
 CREATE TABLE hint (id BIGINT AUTO_INCREMENT, title VARCHAR(128), lead TEXT, contents TEXT, number BIGINT, created_by BIGINT, updated_by BIGINT, slug VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX hint_sluggable_idx (slug), INDEX created_by_idx (created_by), INDEX updated_by_idx (updated_by), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci ENGINE = InnoDB;
+CREATE TABLE hint_has_comment (hint_id BIGINT, comment_id BIGINT, PRIMARY KEY(hint_id, comment_id)) ENGINE = INNODB;
 CREATE TABLE project (id BIGINT AUTO_INCREMENT, title VARCHAR(128), lead TEXT, contents TEXT, number BIGINT, created_by BIGINT, updated_by BIGINT, slug VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX project_sluggable_idx (slug), INDEX created_by_idx (created_by), INDEX updated_by_idx (updated_by), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci ENGINE = InnoDB;
+CREATE TABLE project_has_comment (project_id BIGINT, comment_id BIGINT, PRIMARY KEY(project_id, comment_id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_forgot_password (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, unique_key VARCHAR(255), expires_at DATETIME NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_group (id BIGINT AUTO_INCREMENT, name VARCHAR(255) UNIQUE, description TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_group_permission (group_id BIGINT, permission_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(group_id, permission_id)) ENGINE = INNODB;
@@ -22,8 +24,12 @@ ALTER TABLE example_has_comment ADD CONSTRAINT example_has_comment_example_id_ex
 ALTER TABLE example_has_comment ADD CONSTRAINT example_has_comment_comment_id_comment_id FOREIGN KEY (comment_id) REFERENCES comment(id) ON DELETE CASCADE;
 ALTER TABLE hint ADD CONSTRAINT hint_updated_by_sf_guard_user_id FOREIGN KEY (updated_by) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
 ALTER TABLE hint ADD CONSTRAINT hint_created_by_sf_guard_user_id FOREIGN KEY (created_by) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
+ALTER TABLE hint_has_comment ADD CONSTRAINT hint_has_comment_hint_id_hint_id FOREIGN KEY (hint_id) REFERENCES hint(id) ON DELETE CASCADE;
+ALTER TABLE hint_has_comment ADD CONSTRAINT hint_has_comment_comment_id_comment_id FOREIGN KEY (comment_id) REFERENCES comment(id) ON DELETE CASCADE;
 ALTER TABLE project ADD CONSTRAINT project_updated_by_sf_guard_user_id FOREIGN KEY (updated_by) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
 ALTER TABLE project ADD CONSTRAINT project_created_by_sf_guard_user_id FOREIGN KEY (created_by) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
+ALTER TABLE project_has_comment ADD CONSTRAINT project_has_comment_project_id_project_id FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE;
+ALTER TABLE project_has_comment ADD CONSTRAINT project_has_comment_comment_id_comment_id FOREIGN KEY (comment_id) REFERENCES comment(id) ON DELETE CASCADE;
 ALTER TABLE sf_guard_forgot_password ADD CONSTRAINT sf_guard_forgot_password_user_id_sf_guard_user_id FOREIGN KEY (user_id) REFERENCES sf_guard_user(id) ON DELETE CASCADE;
 ALTER TABLE sf_guard_group_permission ADD CONSTRAINT sf_guard_group_permission_permission_id_sf_guard_permission_id FOREIGN KEY (permission_id) REFERENCES sf_guard_permission(id) ON DELETE CASCADE;
 ALTER TABLE sf_guard_group_permission ADD CONSTRAINT sf_guard_group_permission_group_id_sf_guard_group_id FOREIGN KEY (group_id) REFERENCES sf_guard_group(id) ON DELETE CASCADE;

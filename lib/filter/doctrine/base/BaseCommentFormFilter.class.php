@@ -19,6 +19,8 @@ abstract class BaseCommentFormFilter extends BaseFormFilterDoctrine
       'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'examples_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Example')),
+      'projects_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Project')),
+      'hints_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Hint')),
     ));
 
     $this->setValidators(array(
@@ -28,6 +30,8 @@ abstract class BaseCommentFormFilter extends BaseFormFilterDoctrine
       'created_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'examples_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Example', 'required' => false)),
+      'projects_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Project', 'required' => false)),
+      'hints_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Hint', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('comment_filters[%s]');
@@ -57,6 +61,42 @@ abstract class BaseCommentFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addProjectsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.ProjectComment ProjectComment')
+      ->andWhereIn('ProjectComment.project_id', $values)
+    ;
+  }
+
+  public function addHintsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.HintComment HintComment')
+      ->andWhereIn('HintComment.hint_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'Comment';
@@ -72,6 +112,8 @@ abstract class BaseCommentFormFilter extends BaseFormFilterDoctrine
       'created_at'    => 'Date',
       'updated_at'    => 'Date',
       'examples_list' => 'ManyKey',
+      'projects_list' => 'ManyKey',
+      'hints_list'    => 'ManyKey',
     );
   }
 }

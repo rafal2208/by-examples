@@ -10,17 +10,23 @@
  * @property string $lead
  * @property string $contents
  * @property integer $number
+ * @property Doctrine_Collection $Comments
+ * @property Doctrine_Collection $HintComment
  * 
- * @method integer getId()       Returns the current record's "id" value
- * @method string  getTitle()    Returns the current record's "title" value
- * @method string  getLead()     Returns the current record's "lead" value
- * @method string  getContents() Returns the current record's "contents" value
- * @method integer getNumber()   Returns the current record's "number" value
- * @method Hint    setId()       Sets the current record's "id" value
- * @method Hint    setTitle()    Sets the current record's "title" value
- * @method Hint    setLead()     Sets the current record's "lead" value
- * @method Hint    setContents() Sets the current record's "contents" value
- * @method Hint    setNumber()   Sets the current record's "number" value
+ * @method integer             getId()          Returns the current record's "id" value
+ * @method string              getTitle()       Returns the current record's "title" value
+ * @method string              getLead()        Returns the current record's "lead" value
+ * @method string              getContents()    Returns the current record's "contents" value
+ * @method integer             getNumber()      Returns the current record's "number" value
+ * @method Doctrine_Collection getComments()    Returns the current record's "Comments" collection
+ * @method Doctrine_Collection getHintComment() Returns the current record's "HintComment" collection
+ * @method Hint                setId()          Sets the current record's "id" value
+ * @method Hint                setTitle()       Sets the current record's "title" value
+ * @method Hint                setLead()        Sets the current record's "lead" value
+ * @method Hint                setContents()    Sets the current record's "contents" value
+ * @method Hint                setNumber()      Sets the current record's "number" value
+ * @method Hint                setComments()    Sets the current record's "Comments" collection
+ * @method Hint                setHintComment() Sets the current record's "HintComment" collection
  * 
  * @package    By examples
  * @subpackage model
@@ -62,6 +68,15 @@ abstract class BaseHint extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Comment as Comments', array(
+             'refClass' => 'HintComment',
+             'local' => 'hint_id',
+             'foreign' => 'comment_id'));
+
+        $this->hasMany('HintComment', array(
+             'local' => 'id',
+             'foreign' => 'hint_id'));
+
         $signable0 = new Doctrine_Template_Signable();
         $sluggable0 = new Doctrine_Template_Sluggable(array(
              'unique' => true,

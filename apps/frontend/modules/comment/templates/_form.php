@@ -27,7 +27,6 @@
           <?php echo $form['contents'] ?>
         </td>
       </tr>
-
     </tbody>
   </table>
 </form>
