@@ -118,3 +118,13 @@ sfGuardUser:
     username:         b
     password:         b
     email_address:    b@example.net
+
+  u3:
+    username:         c
+    password:         c
+    email_address:    c@example.net
+
+  u4:
+    username:         d
+    password:         d
+    email_address:    d@example.net

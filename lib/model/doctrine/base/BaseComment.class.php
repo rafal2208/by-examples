@@ -51,7 +51,7 @@ abstract class BaseComment extends sfDoctrineRecord
              'length' => 4096,
              ));
 
-        $this->option('orderBy', 'created_at DESC');
+        $this->option('orderBy', 'created_at ASC');
         $this->option('collate', 'utf8_polish_ci');
         $this->option('charset', 'utf8');
         $this->option('type', 'InnoDB');

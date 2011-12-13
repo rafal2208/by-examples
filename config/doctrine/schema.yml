@@ -107,7 +107,7 @@ Hint:
 
 Comment:
   options:
-    orderBy: created_at DESC
+    orderBy: created_at ASC
     collate: utf8_polish_ci
     charset: utf8
     type: InnoDB

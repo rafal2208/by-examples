@@ -12,8 +12,6 @@
  */
 abstract class BaseCommentForm extends BaseFormDoctrine
 {
-
-
   public function setup()
   {
     $this->setWidgets(array(
@@ -23,9 +21,9 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       'updated_by'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Updator'), 'add_empty' => true)),
       'created_at'    => new sfWidgetFormDateTime(),
       'updated_at'    => new sfWidgetFormDateTime(),
-      'example'       => new sfWidgetFormInputHidden(),
-      'project'       => new sfWidgetFormInputHidden(),
-      'hint'          => new sfWidgetFormInputHidden(),
+      'examples_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Example')),
+      'projects_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Project')),
+      'hints_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Hint')),
     ));
 
     $this->setValidators(array(
@@ -35,26 +33,10 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       'updated_by'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Updator'), 'required' => false)),
       'created_at'    => new sfValidatorDateTime(),
       'updated_at'    => new sfValidatorDateTime(),
-
-      'example' => new sfValidatorOr(array(
-          new sfValidatorChoice(array('choices' => array('-1'))),
-          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Example', 'required' => false))
-      )),
-      'project' => new sfValidatorOr(array(
-          new sfValidatorChoice(array('choices' => array('-1'))),
-          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Project', 'required' => false))
-      )),
-      'hint' => new sfValidatorOr(array(
-          new sfValidatorChoice(array('choices' => array('-1'))),
-          new sfValidatorDoctrineChoice(array('multiple' => false, 'model' => 'Hint', 'required' => false))
-      ))
-
+      'examples_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Example', 'required' => false)),
+      'projects_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Project', 'required' => false)),
+      'hints_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Hint', 'required' => false)),
     ));
-
-    $this->getWidget('example')->setDefault(-1);
-    $this->getWidget('project')->setDefault(-1);
-    $this->getWidget('hint')->setDefault(-1);
-
 
     $this->widgetSchema->setNameFormat('comment[%s]');
 
@@ -70,20 +52,47 @@ abstract class BaseCommentForm extends BaseFormDoctrine
     return 'Comment';
   }
 
-  protected function doSave($con = null)
+  public function updateDefaultsFromObject()
   {
+    parent::updateDefaultsFromObject();
 
-    $this->saveLinked($con);
+    if (isset($this->widgetSchema['examples_list']))
+    {
+      $this->setDefault('examples_list', $this->object->Examples->getPrimaryKeys());
+    }
 
-    parent::doSave($con);
+    if (isset($this->widgetSchema['projects_list']))
+    {
+      $this->setDefault('projects_list', $this->object->Projects->getPrimaryKeys());
+    }
+
+    if (isset($this->widgetSchema['hints_list']))
+    {
+      $this->setDefault('hints_list', $this->object->Hints->getPrimaryKeys());
+    }
 
   }
 
-  public function saveLinked($con = null)
+  protected function doSave($con = null)
+  {
+    $this->saveExamplesList($con);
+    $this->saveProjectsList($con);
+    $this->saveHintsList($con);
+
+    parent::doSave($con);
+  }
+
+  public function saveExamplesList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['examples_list']))
+    {
+      // somebody has unset this widget
+      return;
     }
 
     if (null === $con)
@@ -91,20 +100,100 @@ abstract class BaseCommentForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    if (($e = $this->getValue('example')) && isset($e) && ($e != '-1')) {
-
-        $this->object->link('Examples', array($e));
-
-    } else if (($p = $this->getValue('project')) && isset($p) && ($p != '-1')) {
-
-        $this->object->link('Projects', array($p));
-
-    } else if (($h = $this->getValue('hint')) && isset($h) && ($h != '-1')) {
-
-        $this->object->link('Hints', array($h));
-
+    $existing = $this->object->Examples->getPrimaryKeys();
+    $values = $this->getValue('examples_list');
+    if (!is_array($values))
+    {
+      $values = array();
     }
 
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Examples', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Examples', array_values($link));
+    }
+  }
+
+  public function saveProjectsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['projects_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Projects->getPrimaryKeys();
+    $values = $this->getValue('projects_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Projects', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Projects', array_values($link));
+    }
+  }
+
+  public function saveHintsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['hints_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Hints->getPrimaryKeys();
+    $values = $this->getValue('hints_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Hints', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Hints', array_values($link));
+    }
   }
 
 }
