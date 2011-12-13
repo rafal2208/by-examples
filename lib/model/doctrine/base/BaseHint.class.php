@@ -22,9 +22,9 @@
  * @method Hint    setContents() Sets the current record's "contents" value
  * @method Hint    setNumber()   Sets the current record's "number" value
  * 
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage model
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseHint extends sfDoctrineRecord

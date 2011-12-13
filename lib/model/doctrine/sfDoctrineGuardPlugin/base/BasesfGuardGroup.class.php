@@ -25,9 +25,9 @@
  * @method sfGuardGroup        setSfGuardGroupPermission() Sets the current record's "sfGuardGroupPermission" collection
  * @method sfGuardGroup        setSfGuardUserGroup()       Sets the current record's "sfGuardUserGroup" collection
  * 
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage model
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasesfGuardGroup extends sfDoctrineRecord

@@ -30,3 +30,6 @@ symfony doctrine:generate-module --with-show frontend project Project
 symfony doctrine:generate-module --with-show frontend example Example
 
 symfony doctrine:generate-module --with-show frontend comment Comment
+
+
+symfony doctrine:data-load

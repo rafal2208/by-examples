@@ -19,9 +19,9 @@
  * @method sfGuardUserGroup setUser()     Sets the current record's "User" value
  * @method sfGuardUserGroup setGroup()    Sets the current record's "Group" value
  * 
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage model
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasesfGuardUserGroup extends sfDoctrineRecord

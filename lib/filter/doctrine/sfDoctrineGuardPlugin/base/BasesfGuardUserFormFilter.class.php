@@ -3,9 +3,9 @@
 /**
  * sfGuardUser filter form base class.
  *
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage filter
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
 abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine

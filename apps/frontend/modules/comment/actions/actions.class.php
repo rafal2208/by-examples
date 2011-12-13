@@ -26,6 +26,9 @@ class commentActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new CommentForm();
+//    $this->form->getWidget('examples_list')->setDefault(1);
+//    $this->form->getWidget('examples_list')->setOption('choices', array(1, 2, 3));
+//    $this->form->getWidget('examples_list')->setHidden(true);
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -73,7 +76,14 @@ class commentActions extends sfActions
     {
       $comment = $form->save();
 
-      $this->redirect('comment/edit?id='.$comment->getId());
+      $value = $form->getValue('example');
+      $example = Doctrine_Core::getTable('Example')->find(array($value));
+
+      if ($example)
+      {
+        $this->redirect('example/show?slug='.$example->getSlug());
+      }
+
     }
   }
 }

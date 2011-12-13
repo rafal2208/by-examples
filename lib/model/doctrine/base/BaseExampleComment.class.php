@@ -19,9 +19,9 @@
  * @method ExampleComment setExample()    Sets the current record's "Example" value
  * @method ExampleComment setComment()    Sets the current record's "Comment" value
  * 
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage model
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseExampleComment extends sfDoctrineRecord

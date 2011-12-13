@@ -10,6 +10,8 @@
  */
 class CommentForm extends BaseCommentForm
 {
+
+
   public function configure()
   {
 
@@ -20,10 +22,36 @@ class CommentForm extends BaseCommentForm
       $this['updated_at'],
       $this['created_by'],
       $this['updated_by']
-//      $this['examples_list'],
-//      $this['example_list']
     );
 
+/*
+
+    unset(
+      $this['created_at'],
+      $this['updated_at'],
+      $this['created_by'],
+      $this['updated_by'],
+      $this['examples_list']
+    );
+    $this->setWidget('example_id', new sfWidgetFormInputHidden());
+    $this->setValidator('examaple_id', new sfValidatorNumber(array('required' => false)));
+*/
 
   }
+
+/*
+  public function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    if (isset($this->widgetSchema['examples_list']))
+    {
+//      $this->setDefault('examples_list', $this->object->Panstwa->getPrimaryKeys());
+      $this->setDefault('examples_list', array(4));
+    }
+
+  }
+*/
+
+
 }

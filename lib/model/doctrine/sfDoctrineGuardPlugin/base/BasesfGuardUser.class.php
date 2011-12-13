@@ -55,9 +55,9 @@
  * @method sfGuardUser           setRememberKeys()          Sets the current record's "RememberKeys" value
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
  * 
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage model
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasesfGuardUser extends sfDoctrineRecord

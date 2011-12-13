@@ -5,9 +5,9 @@
  *
  * @method sfGuardGroup getObject() Returns the current form's model object
  *
- * @package    symfony-1-4-social-startup
+ * @package    By examples
  * @subpackage form
- * @author     Your name here
+ * @author     gajdaw
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BasesfGuardGroupForm extends BaseFormDoctrine

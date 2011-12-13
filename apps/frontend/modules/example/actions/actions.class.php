@@ -31,6 +31,15 @@ class exampleActions extends sfActions
     $this->example = Doctrine_Core::getTable('Example')->findOneBySlug($request->getParameter('slug'));
     $this->forward404Unless($this->example);
     $this->form = new CommentForm();
+
+//    $this->form->getWidget('examples_list')->setDefault(array(1));
+//    $this->form->getWidget('contents')->setDefault('aaaa');
+//    $this->form->getWidget('examples_list')->values = array(1);
+//    $this->form->getWidget('examples_list')->setHidden(true);
+
+    $this->form->getWidget('example')->setDefault($this->example->getId());
+
+
   }
 
   public function executeNew(sfWebRequest $request)

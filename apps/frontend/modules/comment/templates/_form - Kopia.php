@@ -27,7 +27,13 @@
           <?php echo $form['contents'] ?>
         </td>
       </tr>
-
+      <tr>
+        <th><?php echo $form['examples_list']->renderLabel() ?></th>
+        <td>
+          <?php echo $form['examples_list']->renderError() ?>
+          <?php echo $form['examples_list'] ?>
+        </td>
+      </tr>
     </tbody>
   </table>
 </form>
