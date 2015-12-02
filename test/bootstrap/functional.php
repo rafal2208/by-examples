@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-// guess current application
+// guess current application my comment
 if (!isset($app))
 {
   $traces = debug_backtrace();
